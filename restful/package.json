@@ -1,0 +1,17 @@
+{
+  "name": "ne_rest_starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
