@@ -26,7 +26,7 @@ export default function TabLayout() {
           tabBarShowLabel: false,
           tabBarBackground: () => (
             <View
-              className=" bg-blue500 border-2 border-gray-200 flex-1"
+              className=" bg-blue500 border-2 border-gray-300/20 flex-1"
               style={{ borderRadius: 50 }}
             />
           ),

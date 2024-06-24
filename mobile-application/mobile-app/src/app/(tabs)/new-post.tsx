@@ -53,13 +53,15 @@ const NewPost = () => {
         onChangeText={(title) => setData({ ...data, title })}
         placeholder="Title"
       />
-      <CustomInput
-        label="Content"
+      <ThemedText className=" font-semibold mt-3">Content</ThemedText>
+      <TextInput
+        // label="Content"
         value={data.content}
         onChangeText={(content) => setData({ ...data, content })}
         editable
         numberOfLines={6}
         maxLength={400}
+        className="h-20 border-gray-400 p-2 border-2 mt-2 rounded-md"
         textAlignVertical="top"
         autoCapitalize="sentences"
         placeholder="Content"
