@@ -17,23 +17,37 @@ export interface User extends Timestamps {
   posts?: Post[];
 }
 
-export interface Post extends Timestamps {
-  likes: any;
-  id: string;
+// export interface Post extends Timestamps {
+//   likes: any;
+//   id: string;
+//   title: string;
+//   content: string;
+//   image: string;
+//   authorId: string;
+//   videoUrl?: string;
+//   author?: User;
+//   isMine?: boolean;
+//   comments?: Comment[];
+// }
+
+export interface Post {
+  id: number;
+  userId: number;
   title: string;
-  content: string;
-  image: string;
-  authorId: string;
-  videoUrl?: string;
-  author?: User;
-  isMine?: boolean;
-  comments?: Comment[];
+  body: string;
 }
 
-export interface Comment extends Timestamps {
+export interface Comment {
   id: string;
-  content: string;
+  body: string;
   postId: string;
-  authorId: string;
-  author?: User;
+  name: string;
+  email: string;
 }
+// export interface Comment extends Timestamps {
+//   id: string;
+//   content: string;
+//   postId: string;
+//   authorId: string;
+//   author?: User;
+// }

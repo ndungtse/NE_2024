@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts/AuthProvider";
-import { getResError } from "@/utils/fetch";
+import { api, getResError } from "@/utils/fetch";
 import { AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
@@ -14,14 +14,14 @@ export const useGet = <T>(url: string, opts?: IOpts<T>) => {
   const [data, setData] = useState<T | null>(initialData ?? null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const { AuthApi } = useAuth();
+  // const { AuthApi } = useAuth();
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await AuthApi?.get(url, opts?.config);
+      const res = await api?.get(url, opts?.config);
       // console.log(res?.data);
-      setData(res?.data.data);
+      setData(res?.data?.data?? res.data);
     } catch (error) {
       const err = getResError(error);
       console.log(err);

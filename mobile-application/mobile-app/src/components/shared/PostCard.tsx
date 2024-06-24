@@ -43,7 +43,7 @@ const PostCard = ({ post, refetch }: Props) => {
       className="flex flex-col rounded-lg p-3 mt-3  bg-gray-400/10"
       style={{ elevation: 0 }}
     >
-      <View className="flex-row items-center justify-between">
+      {/* <View className="flex-row items-center justify-between">
         <Pressable
           onPress={() => router.push(`/user/${post?.author?.id}`)}
           className="flex-row items-center"
@@ -77,16 +77,16 @@ const PostCard = ({ post, refetch }: Props) => {
           post={post}
           refetch={refetch}
         />
-      </View>
+      </View> */}
       <ThemedText className=" text-base">{post?.title}</ThemedText>
-      {post.image && (
+      {/* {post.image && (
         <Image
           source={{ uri: post?.image }}
           className="w-full h-52 rounded-md mt-2"
           resizeMode="cover"
         />
-      )}
-      <ThemedText>{post?.content}</ThemedText>
+      )} */}
+      <ThemedText>{post?.body}</ThemedText>
       {/* Comments, likes */}
       <View className="flex-row justify-between mt-2">
         <Pressable
@@ -94,11 +94,7 @@ const PostCard = ({ post, refetch }: Props) => {
           className="flex-row items-center"
         >
           <AntDesign name="message1" size={24} color={Colors.primary} />
-          <ThemedText className="ml-1">{post?.comments?.length}</ThemedText>
-        </Pressable>
-        <Pressable className="flex-row items-center">
-          <AntDesign name="like2" size={24} color={Colors.primary} />
-          <ThemedText className="ml-1">{post?.likes?.length ?? 0}</ThemedText>
+          {/* <ThemedText className="ml-1">{post?.comments?.length}</ThemedText> */}
         </Pressable>
       </View>
       {/* Comment section */}

@@ -45,7 +45,7 @@ const IndexPage = () => {
           json-placeholder community
         </Text>
         <Pressable
-          onPress={() => router.push("/login")}
+          onPress={() => router.push("/(tabs)")}
           className="bg-primary w-fit flex-row gap-x-2 items-center justify-center absolute bottom-11 text-primary p-3 px-8 pb-3.5 rounded-[120px] mt-3"
         >
           <Text className="text-white text-lg font-bold">Get Started</Text>

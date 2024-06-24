@@ -40,7 +40,7 @@ export default function RootLayout() {
 
   return (
     <ToastProvider placement='top'>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <AppProvider>
             <SafeAreaView
@@ -50,14 +50,14 @@ export default function RootLayout() {
               }}
               edges={[]}
             >
-              <Stack screenOptions={{ headerShown: false }} initialRouteName='index'>
+              <Stack screenOptions={{ headerShown: false }} initialRouteName='(tabs)'>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
               </Stack>
             </SafeAreaView>
           </AppProvider>
         </ThemeProvider>
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </ToastProvider>
   );
 }

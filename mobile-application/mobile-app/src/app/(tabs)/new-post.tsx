@@ -1,18 +1,18 @@
-import { View, Text, TextInput, Pressable } from "react-native";
-import React, { useState } from "react";
+import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import CustomInput from "@/components/core/inputs/CustomInput";
-import { ThemedText } from "@/components/ThemedText";
 import { useAuth } from "@/contexts/AuthProvider";
-import { Toast } from "react-native-toast-notifications";
+import { api, getResError } from "@/utils/fetch";
 import { Spinner } from "@ui-kitten/components";
-import { getResError } from "@/utils/fetch";
+import React, { useState } from "react";
+import { Pressable, Text, View } from "react-native";
+import { Toast } from "react-native-toast-notifications";
 
 const NewPost = () => {
   const [data, setData] = useState({
     title: "",
-    content: "",
-    image: null as any, // image url optional
+    body: "",
+    userId: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -20,16 +20,16 @@ const NewPost = () => {
 
   const onSubmit = async () => {
     setError("");
-    if (!data.title || !data.content) {
+    if (!data.title || !data.body) {
       Toast.show("Please fill all fields", { type: "danger" });
       setError("Please fill all fields");
       return;
     }
     try {
-      const res = await AuthApi.post("/posts", data);
+      const res = await api.post("/posts", data);
       console.log(res.data);
       Toast.show("Post created successfully", { type: "success" });
-      setData({ title: "", content: "", image: "" });
+      setData({ title: "", body: "", userId: "" });
     } catch (error) {
       console.log(error);
       Toast.show(getResError(error), { type: "danger" });
@@ -54,24 +54,24 @@ const NewPost = () => {
         placeholder="Title"
       />
       <CustomInput
-        label="Content"
-        value={data.content}
-        onChangeText={(content) => setData({ ...data, content })}
+        label="body"
+        value={data.body}
+        onChangeText={(body) => setData({ ...data, body })}
         editable
         numberOfLines={6}
         maxLength={400}
         textAlignVertical="top"
         autoCapitalize="sentences"
-        placeholder="Content"
+        placeholder="body"
         multiline
       />
       <CustomInput
-        label="Image"
-        value={data.image}
-        onChangeText={(image) => setData({ ...data, image })}
-        placeholder="Image url"
+        label="User id"
+        value={data.userId}
+        onChangeText={(userId) => setData({ ...data, userId })}
+        placeholder="User Id"
       />
-      <Text className="text-sm text-gray-500">Optional</Text>
+      {/* <Text className="text-sm text-gray-500">Optional</Text> */}
 
       <Pressable onPress={onSubmit} className="bg-primary p-3 rounded-md mt-2">
         <Text className="text-white text-center text-base font-semibold">

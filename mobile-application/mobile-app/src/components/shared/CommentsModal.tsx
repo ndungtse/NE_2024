@@ -3,20 +3,19 @@ import {
   Image,
   RefreshControl,
   ScrollView,
-  StyleSheet,
-  View,
+  View
 } from "react-native";
 // import Modal from "react-native-modal";
+import { useGet } from "@/hooks/useGet";
 import { Comment } from "@/types/schema";
 import Modal from "react-native-modal";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
-import { useGet } from "@/hooks/useGet";
 
 interface Props {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  postId: string;
+  postId: number;
 }
 
 const CommentsModal = ({ visible, setVisible, postId }: Props) => {
@@ -24,7 +23,7 @@ const CommentsModal = ({ visible, setVisible, postId }: Props) => {
     data: comments,
     loading,
     getData,
-  } = useGet<Comment[]>(`/comments/${postId}`);
+  } = useGet<Comment[]>(`/posts/${postId}/comments`);
   return (
     <>
       {/* <Modal
@@ -74,8 +73,7 @@ const CommentsModal = ({ visible, setVisible, postId }: Props) => {
                   <Image
                     source={{
                       uri:
-                        comment?.author?.profilePic ??
-                        `https://ui-avatars.com/api/?name=${comment?.author?.fullName}`,
+                        `https://ui-avatars.com/api/?name=${comment?.name}`,
                     }}
                     width={40}
                     height={40}
@@ -84,9 +82,9 @@ const CommentsModal = ({ visible, setVisible, postId }: Props) => {
                   />
                   <View className="flex-col ml-2">
                     <ThemedText className="font-bold">
-                      {comment.author?.fullName}
+                      {comment.name}
                     </ThemedText>
-                    <ThemedText>{comment.content}</ThemedText>
+                    <ThemedText>{comment.body}</ThemedText>
                   </View>
                 </ThemedView>
               ))}

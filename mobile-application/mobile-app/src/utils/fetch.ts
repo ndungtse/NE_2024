@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const isDev = process.env.NODE_ENV === 'development';
 const baseURL = isDev ? process.env.EXPO_PUBLIC_API_URL : process.env.EXPO_PUBLIC_PROD_URL;
-export const url =  `${baseURL}/api`
+// export const url =  `${baseURL}/api`
+export const url =  `https://jsonplaceholder.typicode.com/`
 export const api = axios.create({
    baseURL: url,
 });

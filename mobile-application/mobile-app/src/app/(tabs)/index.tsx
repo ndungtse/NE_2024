@@ -22,6 +22,7 @@ export default function HomeScreen() {
     getData,
     loading,
   } = useGet<Post[]>("/posts", { initialData: [] });
+  console.log("posts", posts)
   return (
     <ThemedView className="flex-1 flex-col">
       <View className="flex-row justify-between items-center p-3">
