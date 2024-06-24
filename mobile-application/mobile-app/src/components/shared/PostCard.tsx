@@ -71,14 +71,14 @@ const PostCard = ({ post, refetch }: Props) => {
             </ThemedText>
           </View>
         </Pressable>
+        </View> */}
+      <View className="flex-row justify-between">
+        <ThemedText className=" text-base font-semibold" style={{ fontWeight: 600 }}>{post?.title}</ThemedText>
         <PostOptionPopup
-          // visible={showOptions}
-          // setVisible={setShowOptions}
           post={post}
           refetch={refetch}
         />
-      </View> */}
-      <ThemedText className=" text-base">{post?.title}</ThemedText>
+      </View>
       {/* {post.image && (
         <Image
           source={{ uri: post?.image }}
@@ -93,30 +93,30 @@ const PostCard = ({ post, refetch }: Props) => {
           onPress={() => setShowComments(!showComments)}
           className="flex-row items-center"
         >
-          <AntDesign name="message1" size={24} color={Colors.primary} />
+          <AntDesign name="message1" size={26} color={Colors.primary} />
           {/* <ThemedText className="ml-1">{post?.comments?.length}</ThemedText> */}
         </Pressable>
-      </View>
-      {/* Comment section */}
-      <View className="flex-row mt-2">
-        <TextInput
-          value={comment}
-          onChangeText={setComment}
-          placeholder="Add Comment"
-          onSubmitEditing={handleComment}
-          className="flex-1 p-2  bg-gray-400/10 rounded-md"
-        />
-        <Pressable
-          onPress={handleComment}
-          disabled={commenting}
-          className="bg-primary p-2 rounded-md ml-2"
-        >
-          {commenting ? (
-            <Spinner />
-          ) : (
-            <AntDesign name="arrowright" size={24} color={"white"} />
-          )}
-        </Pressable>
+        {/* Comment section */}
+        <View className="flex-row mt-2 flex-1 w-full ml-2">
+          <TextInput
+            value={comment}
+            onChangeText={setComment}
+            placeholder="Add Comment"
+            onSubmitEditing={handleComment}
+            className="flex-1 p-2  bg-gray-400/10 rounded-md"
+          />
+          <Pressable
+            onPress={handleComment}
+            disabled={commenting}
+            className="bg-primary p-2 rounded-md ml-2"
+          >
+            {commenting ? (
+              <Spinner />
+            ) : (
+              <AntDesign name="arrowright" size={24} color={"white"} />
+            )}
+          </Pressable>
+        </View>
       </View>
       <CommentsModal
         visible={showComments}

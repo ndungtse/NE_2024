@@ -7,6 +7,8 @@ import React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { ThemedText } from "../ThemedText";
+import { api } from "@/utils/fetch";
+import { Toast } from "react-native-toast-notifications";
 
 interface Props {
   //   visible: boolean;
@@ -18,14 +20,15 @@ interface Props {
 const PostOptionPopup = ({ post, refetch }: Props) => {
   const [visible, setVisible] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
-  const { AuthApi } = useAuth();
 
   const onDelete = async () => {
     setDeleting(true);
     try {
-      await AuthApi.delete(`/posts/${post.id}`);
+      await api.delete(`/posts/${post.id}`);
+      Toast.show("Post deleted successfully", {type: 'success'})
       refetch?.();
     } catch (error) {
+      Toast.show("Error deleting post", {type: 'danger'})
       console.log(error);
     }
     setDeleting(false);
@@ -43,14 +46,14 @@ const PostOptionPopup = ({ post, refetch }: Props) => {
       onBackdropPress={() => setVisible(false)}
     >
       <Layout style={styles.content}>
-        <Pressable
+        {/* <Pressable
           className="flex-row w-full items-start text-star  px-2"
           //   href={`/user/${post?.author?.id}`}
           onPress={() => router.push(`/user/${post?.author?.id}`)}
         >
           <ThemedText>View Profile</ThemedText>
-        </Pressable>
-        {post.isMine && (
+        </Pressable> */}
+        {post && (
           <Pressable
             onPress={onDelete}
             className="flex-row items-center w-full p-2"

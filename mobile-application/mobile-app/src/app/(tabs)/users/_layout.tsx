@@ -15,21 +15,23 @@ const UserLayout = () => {
       <Stack.Screen
         name="index"
         options={{
-          headerShown: false,
+          headerShown: true,
           headerTitle: "Users",
-          // headerBlurEffect: "regular",
-          // headerTintColor: Colors[colorScheme].text,
-          // headerStyle: { backgroundColor: Colors[colorScheme].color },
-          // headerBackground: () => <BlurView className="" />,
-          // headerTransparent: isIos,
-          // headerSearchBarOptions: {
-          //   placeholder: "Search Users",
-          //   hideWhenScrolling: false,
-          //   tintColor: Colors[colorScheme].text,
-          //   headerIconColor: Colors[colorScheme].text,
-          //   textColor: Colors[colorScheme].text,
-          //   // onChangeText:
-          // },
+          headerBlurEffect: "regular",
+          headerTintColor: Colors[colorScheme].text,
+          //   headerLargeTitle: true,
+          headerStyle: { backgroundColor: Colors[colorScheme].color },
+          headerBackground: () => <BlurView className="" />,
+          headerTransparent: isIos,
+          headerSearchBarOptions: {
+            placeholder: "Search Users",
+            hideWhenScrolling: false,
+            tintColor: Colors[colorScheme].text,
+            headerIconColor: Colors[colorScheme].text,
+            textColor: Colors[colorScheme].text,
+            // onChangeText:
+          },
+          // headeSe
         }}
       />
     </Stack>

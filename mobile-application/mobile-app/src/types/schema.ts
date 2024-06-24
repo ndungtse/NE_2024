@@ -4,6 +4,7 @@ export interface Timestamps {
 }
 
 export interface User extends Timestamps {
+  name: any;
   id: string;
   email: string;
   fullName: string;
