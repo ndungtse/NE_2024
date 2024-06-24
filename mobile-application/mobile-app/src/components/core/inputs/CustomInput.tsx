@@ -27,6 +27,11 @@ interface Props extends TextInputProps {
   onSubmitEditing?: () => void;
 }
 
+/**
+ * A custom input component that can be used in place of the default TextInput component
+ * @param props
+ * @returns
+ */
 const CustomInput = (props: Props) => {
   const {
     onChangeText,

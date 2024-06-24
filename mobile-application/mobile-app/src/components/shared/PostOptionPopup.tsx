@@ -2,9 +2,11 @@ import { useAuth } from "@/contexts/AuthProvider";
 import { Post } from "@/types/schema";
 import { AntDesign } from "@expo/vector-icons";
 import { Avatar, Layout, Popover, Spinner } from "@ui-kitten/components";
+import { Link, router } from "expo-router";
 import React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { ThemedText } from "../ThemedText";
 
 interface Props {
   //   visible: boolean;
@@ -41,7 +43,13 @@ const PostOptionPopup = ({ post, refetch }: Props) => {
       onBackdropPress={() => setVisible(false)}
     >
       <Layout style={styles.content}>
-        {/* <Text>Welcome to UI Kitten 😻</Text> */}
+        <Pressable
+          className="flex-row w-full items-start text-star  px-2"
+          //   href={`/user/${post?.author?.id}`}
+          onPress={() => router.push(`/user/${post?.author?.id}`)}
+        >
+          <ThemedText>View Profile</ThemedText>
+        </Pressable>
         {post.isMine && (
           <Pressable
             onPress={onDelete}
@@ -66,6 +74,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 4,
     paddingVertical: 8,
+    width: 150,
   },
 });
 

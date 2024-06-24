@@ -1,4 +1,6 @@
-# Fullstack mobile starter template
+# Fullstack mobile App Exam
+
+A social media app to connect jsonplaceholder community members
 
 ## Tech Stacks
 
