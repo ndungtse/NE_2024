@@ -4,6 +4,7 @@ import {
   Pressable,
   StyleProp,
   Text,
+  TextInputProps,
   View,
   ViewStyle,
 } from "react-native";
@@ -12,8 +13,8 @@ import { cn } from "@/utils/cn";
 import { getStyles } from "@/utils/funcs/components";
 import { Feather } from "@expo/vector-icons";
 
-interface Props {
-  onChange?: (text: string) => void;
+interface Props extends TextInputProps {
+  onChangeText?: (text: string) => void;
   leftSection?: React.ReactNode;
   rightSection?: React.ReactNode;
   secureTextEntry?: boolean;
@@ -28,7 +29,7 @@ interface Props {
 
 const CustomInput = (props: Props) => {
   const {
-    onChange,
+    onChangeText,
     type,
     leftSection,
     style,
@@ -39,6 +40,7 @@ const CustomInput = (props: Props) => {
     className,
     label,
     onSubmitEditing,
+    ...rest
   } = props;
   const [focused, setFocused] = useState(false);
   const [showPass, setShowPass] = useState(!secureTextEntry);
@@ -65,9 +67,9 @@ const CustomInput = (props: Props) => {
       >
         {leftSection}
         <TextField
-          onChangeText={onChange}
+          onChangeText={onChangeText}
           keyboardType={keyboardType ?? "default"}
-          className={cn(" flex-1 flex-row items-center outline-none p-1")}
+          className={cn(" flex-1 flex-row  outline-none p-1")}
           style={{ color: "black" }}
           secureTextEntry={!showPass}
           placeholder={placeholder}
@@ -75,6 +77,7 @@ const CustomInput = (props: Props) => {
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           onSubmitEditing={onSubmitEditing}
+          {...rest}
         />
         {secureTextEntry ? (
           <Pressable onPress={() => setShowPass(!showPass)} className="">

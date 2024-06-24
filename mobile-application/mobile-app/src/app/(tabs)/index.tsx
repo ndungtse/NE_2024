@@ -1,92 +1,69 @@
-import { Image, StyleSheet, Platform } from "react-native";
+import {
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import useStorage from "@/hooks/useStorage";
-import { Button } from "@ui-kitten/components";
+import PostCard from "@/components/shared/PostCard";
+import { useGet } from "@/hooks/useGet";
+import { Post } from "@/types/schema";
+import { Colors } from "@/utils/constants/Colors";
+import { AntDesign } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { useAuth } from "@/contexts/AuthProvider";
+import { ThemedText } from "@/components/ThemedText";
+// import
 
 export default function HomeScreen() {
-  const { removeData } = useStorage();
-  const { setUser, setToken } = useAuth();
+  const {
+    data: posts,
+    getData,
+    loading,
+  } = useGet<Post[]>("/posts", { initialData: [] });
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: "cmd + d", android: "cmd + m" })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this
-          starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText className="bg-blue-800" type="subtitle">
-          Step 3: Get a fresh start
-        </ThemedText>
-        <ThemedText>
-          When you're ready, run{" "}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-        <Button
-          onPress={() => {
-            removeData("token");
-            setUser(null);
-            setToken(null);
-            router.push("/");
-          }}
+    <ThemedView className="flex-1 flex-col">
+      <View className="flex-row justify-between items-center p-3">
+        <View className="flex flex-row items-center justify-center">
+          <ThemedText className=" text-lg font-bold">Place</ThemedText>
+          <Text className=" text-lg text-primary font-bold">Hub</Text>
+        </View>
+        {/* <Image
+          source={require("@/assets/images/icon.png")}
+          width={30}
+          height={30}
+          className="w-10 h-10"
+          resizeMode="contain"
+        /> */}
+        <Pressable
+          className=" bg-gray-300/30 p-2 rounded-full"
+          onPress={() => router.push("/notifications")}
         >
-          Logout
-        </Button>
-      </ThemedView>
-    </ParallaxScrollView>
+          <AntDesign name="bells" size={24} color={Colors.primary} />
+        </Pressable>
+      </View>
+      <ScrollView
+        className="flex-1 p-3"
+        contentContainerStyle={{ paddingBottom: 100 }}
+        refreshControl={
+          <RefreshControl
+            tintColor={Colors.primary}
+            colors={[Colors.primary]}
+            refreshing={loading}
+            onRefresh={getData}
+          />
+        }
+      >
+        {loading && (
+          <View className="flex-col items-center justify-center">
+            <Text>Loading posts...</Text>
+          </View>
+        )}
+        {posts?.map((post) => (
+          <PostCard refetch={getData} key={post.id} post={post} />
+        ))}
+      </ScrollView>
+    </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});

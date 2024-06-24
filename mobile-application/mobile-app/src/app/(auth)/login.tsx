@@ -91,10 +91,10 @@ const LoginScreen = () => {
             placeholder="Your Email"
             className="mt-3"
             label="Email"
-            onChange={(text) => setData({ ...data, email: text })}
+            onChangeText={(text) => setData({ ...data, email: text })}
           />
           <CustomInput
-            onChange={(text) => setData({ ...data, password: text })}
+            onChangeText={(text) => setData({ ...data, password: text })}
             type="password"
             label="Password"
             secureTextEntry

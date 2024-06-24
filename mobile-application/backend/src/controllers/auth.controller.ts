@@ -13,11 +13,15 @@ AuthRouter.post("/register", async (req, res) => {
     #swagger.tags = ['Auth']
      */
   try {
+    const { email, password, fullName, username } = req.body;
     await registerSchema.parseAsync(req.body);
-    const { email, password, fullName } = req.body;
     const userExists = await prisma.user.findFirst({ where: { email } });
     if (userExists) {
       throw new Error("User with the email exists");
+    }
+    const usernameExists = await prisma.user.findFirst({ where: { username } });
+    if (usernameExists) {
+      throw new Error("User with the username exists");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
@@ -25,6 +29,7 @@ AuthRouter.post("/register", async (req, res) => {
         email,
         password: hashedPassword,
         fullName,
+        username,
       },
     });
     res

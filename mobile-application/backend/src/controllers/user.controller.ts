@@ -8,7 +8,7 @@ const userRouter = Router();
 
 userRouter.get("/", async (req, res) => {
   /* #swagger.tags = ['User'] */
-   /* #swagger.security = [{
+  /* #swagger.security = [{
             "authToken": []
     }] */
   try {
@@ -23,7 +23,7 @@ userRouter.get("/", async (req, res) => {
 
 userRouter.get("/me", async (req: UserRequest, res) => {
   /* #swagger.tags = ['User'] */
-   /* #swagger.security = [{
+  /* #swagger.security = [{
             "authToken": []
     }] */
   try {
@@ -46,7 +46,7 @@ userRouter.get("/me", async (req: UserRequest, res) => {
 
 userRouter.get("/:id", async (req, res) => {
   /* #swagger.tags = ['User'] */
-   /* #swagger.security = [{
+  /* #swagger.security = [{
             "authToken": []
     }] */
   try {
@@ -69,7 +69,7 @@ userRouter.get("/:id", async (req, res) => {
 
 userRouter.put("/:id", async (req, res) => {
   /* #swagger.tags = ['User'] */
-   /* #swagger.security = [{
+  /* #swagger.security = [{
             "authToken": []
     }] */
   try {
@@ -93,7 +93,7 @@ userRouter.put("/:id", async (req, res) => {
 
 userRouter.delete("/:id", async (req, res) => {
   /* #swagger.tags = ['User'] */
-   /* #swagger.security = [{
+  /* #swagger.security = [{
             "authToken": []
     }] */
   try {
@@ -105,6 +105,45 @@ userRouter.delete("/:id", async (req, res) => {
     res
       .status(200)
       .json(new ApiResponse(null, "User deleted successfully", true));
+  } catch (error: any) {
+    handleErrorResponse(res, error);
+  }
+});
+
+// get user with posts
+userRouter.get("/:id/posts", async (req, res) => {
+  /* #swagger.tags = ['User'] */
+  /* #swagger.security = [{
+            "authToken": []
+    }] */
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.params.id,
+      },
+      include: {
+        posts: {
+          include: {
+            comments: true,
+            author: {
+              select: {
+                id: true,
+                fullName: true,
+                username: true,
+                profilePic: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!user)
+      return res
+        .status(404)
+        .json(new ApiResponse(null, "User not found", false));
+    res
+      .status(200)
+      .json(new ApiResponse(user, "User fetched successfully", true));
   } catch (error: any) {
     handleErrorResponse(res, error);
   }

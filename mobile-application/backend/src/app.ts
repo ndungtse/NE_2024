@@ -5,13 +5,22 @@ import swaggerUi from "swagger-ui-express";
 import router from "./routes";
 import swagger from "./swagger";
 import swaggerFile from "../swagger-output.json";
+import morgan from "morgan";
+import fs from "fs";
+import path from "path";
 
-const APP_NAME = "Node.js Express API with Swagger Documentation and TypeScript";
+const APP_NAME =
+  "Node.js Express API with Swagger Documentation and TypeScript";
 
 dotEnv.config();
 const app = express();
 app.use(express.json()); // To parse the incoming requests with JSON payloads
 app.use(cors());
+
+const logFile = fs.createWriteStream(path.join(__dirname, "app.log"), {
+  flags: "a",
+});
+app.use(morgan("common", { stream: logFile }));
 
 app.get("/", (req, res) => {
   /* #swagger.tags = ['App'] */
@@ -21,14 +30,17 @@ app.get("/", (req, res) => {
   `);
 });
 app.use(router);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile, {
-  swaggerOptions: {
-     docExpansion: 'none',
-     explorer: true,
-     tagsSorter: 'alpha',
-  },
-}));
-
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerFile, {
+    swaggerOptions: {
+      docExpansion: "none",
+      explorer: true,
+      tagsSorter: "alpha",
+    },
+  })
+);
 
 const PORT = process.env.PORT || 3000;
 

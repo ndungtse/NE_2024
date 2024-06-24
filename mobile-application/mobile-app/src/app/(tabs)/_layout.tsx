@@ -1,13 +1,14 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
-import { Dimensions, Platform, StyleSheet, View } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomStatusBar from "@/components/core/CustomStatusbar";
 import TabBarIcon from "@/components/navigation/TabBarIcon";
 import { useApp } from "@/contexts/AppProvider";
 import { Colors } from "@/utils/constants/Colors";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Platform, StyleSheet, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function TabLayout() {
   const { colorScheme } = useApp();
@@ -16,7 +17,7 @@ export default function TabLayout() {
   const _tabBarStyle = isIos ? styles.tabBarIos : styles.tabBarAndroid;
   return (
     <SafeAreaProvider style={{ backgroundColor: Colors[colorScheme].color }}>
-      {/* <CustomStatusBar /> */}
+      <CustomStatusBar />
       <Tabs
         screenOptions={{
           tabBarHideOnKeyboard: true,
@@ -58,11 +59,11 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="new-post"
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon focused={focused}>
-                <MaterialIcons name="notifications" size={35} color={color} />
+                <MaterialIcons name="add" size={35} color={color} />
               </TabBarIcon>
             ),
           }}
@@ -72,7 +73,7 @@ export default function TabLayout() {
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon focused={focused}>
-                <MaterialIcons name="group" size={35} color={color} />
+                <FontAwesome name="user" size={35} color={color} />
               </TabBarIcon>
             ),
           }}

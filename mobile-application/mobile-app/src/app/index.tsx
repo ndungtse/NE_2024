@@ -39,9 +39,10 @@ const IndexPage = () => {
             )}
           />
         </View>
-        <Text className="text-primary text-xl">Welcome to MobStarter</Text>
+        <Text className="text-primary text-xl">Welcome to PlaceholderHub</Text>
         <Text className="text-center text-gray-500 mt-2">
-          A platform that helps you fund your projects and ideas
+          The best platform to share your thoughts and ideas with
+          json-placeholder community
         </Text>
         <Pressable
           onPress={() => router.push("/login")}
