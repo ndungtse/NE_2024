@@ -1,0 +1,54 @@
+export interface Timestamps {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface User extends Timestamps {
+  name: any;
+  id: string;
+  email: string;
+  fullName: string;
+  password: string;
+  orders?: Post[];
+  cartId: string;
+  username: string;
+  verified: boolean;
+  verificationToken?: string;
+  profilePic?: string;
+  posts?: Post[];
+}
+
+// export interface Post extends Timestamps {
+//   likes: any;
+//   id: string;
+//   title: string;
+//   content: string;
+//   image: string;
+//   authorId: string;
+//   videoUrl?: string;
+//   author?: User;
+//   isMine?: boolean;
+//   comments?: Comment[];
+// }
+
+export interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+}
+
+export interface Comment {
+  id: string;
+  body: string;
+  postId: string;
+  name: string;
+  email: string;
+}
+// export interface Comment extends Timestamps {
+//   id: string;
+//   content: string;
+//   postId: string;
+//   authorId: string;
+//   author?: User;
+// }
