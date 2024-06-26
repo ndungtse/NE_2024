@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${opType + ' Successfully'}">Deposit Successfully</title>
+</head>
+<body style="background-color: white; color: #000; font-family: Arial, sans-serif;">
+<!--Message: Dear <fullName> Your deposit of <opAmount> on your account <accountNumber> has been successfully-->
+<!--    processed. Your new balance is <amount>.-->
+<div style="max-width: 600px; margin: 0 auto; padding: 24px; background-color: white; border: 1px solid #e2e2e2; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+    <img src="https://www.bnr.rw/typo3conf/ext/bnr_theme/Resources/Public/Images/bnr_logo.png"
+         style="width: 176px; margin: 32px auto; display: block;" alt="BNR Logo">
+    <div style="text-align: center; margin-bottom: 24px;">
+        <h1 style="font-size: 24px; font-weight: bold; color: #773A19;">
+            <span th:text="${opType}">Deposit</span>
+            Successfully</h1>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <p style="font-size: 18px;">
+            Dear <span th:text="${fullName}">User</span>,
+        </p>
+        <p style="margin-top: 8px;">
+            Your <span th:text="${opType}">deposit</span>
+            of <span th:text="${opAmount}">0.00</span> on your account <span
+                th:text="${accountNumber}">0000000000</span>
+            has been successfully processed. Your new balance is <span th:text="${amount}">0.00</span>.
+        </p>
+    </div>
+    <div style="margin-top: 24px; text-align: center;">
+        <a href="https://localhost:4546/auth/login"
+           style="display: inline-block; padding: 12px 24px; color: white; background-color: #773A19; border-radius: 9999px; text-decoration: none; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            Go to Login
+        </a>
+    </div>
+</html>
